@@ -1,6 +1,6 @@
 # -*- coding: iso-8859-1 -*-
-# Thomas sin photobooth...
-# Oppløsning 4:3-skjerm: 1280x1024
+# A simple photobooth for my wedding
+# Hardcoded resolution: 4:3, 1280x1024
 
 from time import sleep
 import os
@@ -77,11 +77,6 @@ def GetDateTimeString():
     clean = dt.replace(" ","_").replace(":","_")
     return clean
 
-# GRAPHICS:
-# CAMERA:
-# GPIO:
-# MAIN LOOP:
-
 try:
     while game_isrunning:
         spent_ms = clock.tick(50)
@@ -119,20 +114,16 @@ try:
                     if now - cap_last >= cap_cooldown:                    
                         print "load img %s.." % temp_img_name
                         capture_src = pygame.image.load(temp_img_name)
-                        
-                        #todo: copy src to other folder..
                         dest_name = "originals/cap_%s_%s" % (cap_guid, game_count_captures)
                         print "copy from SRC %s to DEST %s" % (temp_img_name, dest_name)
                         shutil.copyfile(temp_img_name, dest_name)
 
-                        #små firkanter er 286x214
+                        #small boxes: 286x214
                         capture_resized = pygame.transform.scale(capture_src.convert_alpha(),(286,214))
 
                         if game_count_captures == 1:
-                            print "set cap 1 SRC"
                             img_cap1 = capture_resized
                         elif game_count_captures == 2:
-                            print "set cap 2"
                             img_cap2 = capture_resized
                         elif game_count_captures == 3:
                             img_cap3 = capture_resized
@@ -161,11 +152,11 @@ try:
                     game_state = "working"
         elif game_state == "working":
             print "working"
-            #hmm.. skal vi oppdatere gfx en gang her? jukse litt? :-) TODO: bare første gang
+            #minihack: update gfx here..
             screen.blit(img_working,rect_full)
             pygame.display.flip()
 
-            #todo: assemble 4 into 1
+            #Assemble 4 pictures into 1 using a template
             print "open images..."
             template = Image.open("template2.jpg")
             thumb1 = Image.open("cap_1.jpg")
@@ -174,7 +165,6 @@ try:
             thumb4 = Image.open("cap_4.jpg")
             #thumb1.thumbnail((435,326))
             #template = 1280x1024, thumbs = 435x326, src = 2900x??? 5MP
-            #todo: lage større template? bedre til print.. 2560x2048
             #template2 = 2560x2048
             print "creating thumbnails..."
             thumb1.thumbnail((870,652))
@@ -196,10 +186,7 @@ try:
             rect_last_collage_full = img_last_collage_full.get_rect()
             rect_last_collage_full.x = 0 #668
             rect_last_collage_full.y = 0 #363            
-            #rect_last_collage_full.width = 433
-            #rect_last_collage_full.height = 328        
             print "ASDF2:%s" % rect_last_collage_full.width
-
             img_last_collage_small = pygame.transform.scale(img_last_collage_SRC.convert_alpha(),(433,328))
 
             #reset images..
@@ -211,12 +198,9 @@ try:
             print "goto finished state"
             game_state = "finished"
             
-            #todo: optional print image
-            #todo: goto finished, set countdown timer
+            #TODO: optional print image
             preview_last = pygame.time.get_ticks()
         elif game_state == "finished":            
-            #todo: update countdown timer
-            #todo: goto ready when finished
             now = pygame.time.get_ticks()
             if now - preview_last >= preview_timer: 
                 print "preview finished..."
@@ -238,18 +222,14 @@ try:
             #screen.blit(img_working,rect_full)
             print "working gfx.."
         elif game_state == "finished":
-            #screen.blit(img_finished,rect_full)            
-            #todo: show assembled pic here
+            #Showing assembled picture:
             screen.blit(img_last_collage_full,rect_last_collage_full)
             
         fps = clock.get_fps()
         screen.blit(pygame.font.SysFont("freeserif",20,bold=0).render("{0:.2f}".format(fps) + " fps", 1, color_black),((width - 20),10))
-        
-        #pygame.draw.rect(screen, color_pink, (box_x, 200, 20, 20))
         pygame.display.flip() # or update()?
-        #drawCenterMessage("TakinG Picture!", 400, 70, ((width/2)-220), ((height/2)-2))
-                                     
-    print "Finished.."
+
+    print "Loop finished.."
 except Exception, e:
     print "An error occured.."
     tb = sys.exc_info()[2]
@@ -258,6 +238,7 @@ except Exception, e:
     
 finally:
     print "pygame quit.."
+    #This line makes debugging much easier
     pygame.quit()
 
-print "finished"
+print "Script finished"
