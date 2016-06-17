@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/thomastvedt/Photobooth.png?label=ready&title=Ready)](https://waffle.io/thomastvedt/Photobooth)
 # Photobooth
 A simple raspberry pi python photobooth made for my wedding.
 
