@@ -20,9 +20,9 @@ color_black = pygame.Color(0,0,0)
 color_pink = pygame.Color(175,50,55)
 color_mint = pygame.Color(12,145,44)
 
-print "Starting Thomas og Solveig photobooth..."
+print "Starting amazing photobooth..."
 pygame.init()
-pygame.display.set_caption("Thomas og Solveig booth")
+pygame.display.set_caption("Photobooth")
 
 screen = pygame.display.set_mode((width,height))#NOT FULLSCREEN
 #screen = pygame.display.set_mode((width,height),pygame.FULLSCREEN)#FULLSCREEN
