@@ -20,7 +20,9 @@ color_black = pygame.Color(0,0,0)
 color_pink = pygame.Color(175,50,55)
 color_mint = pygame.Color(12,145,44)
 
-print "Starting amazing photobooth..."
+theme = "themes/original/"
+print "Starting amazing photobooth app..."
+
 pygame.init()
 pygame.display.set_caption("Photobooth")
 
@@ -28,13 +30,13 @@ screen = pygame.display.set_mode((width,height))#NOT FULLSCREEN
 #screen = pygame.display.set_mode((width,height),pygame.FULLSCREEN)#FULLSCREEN
 clock = pygame.time.Clock()
 game_isrunning = True
-img_ready = pygame.image.load("ready.jpg")
-img_capture = pygame.image.load("capture.jpg")
-img_working = pygame.image.load("working.jpg")
-img_finished = pygame.image.load("finished.jpg")
-img_last_collage_small = pygame.image.load("preview.jpg")
-img_last_collage_full = pygame.image.load("finished.jpg")
-img_monogram = pygame.image.load("monogram2.jpg")
+img_ready = pygame.image.load(theme + "ready.jpg")
+img_capture = pygame.image.load(theme + "capture.jpg")
+img_working = pygame.image.load(theme + "working.jpg")
+img_finished = pygame.image.load(theme + "finished.jpg")
+img_last_collage_small = pygame.image.load(theme + "preview.jpg")
+img_last_collage_full = pygame.image.load(theme + "finished.jpg")
+#img_monogram = pygame.image.load("monogram2.jpg")
 img_cap1 = pygame.image.load("1.jpg")
 img_cap2 = pygame.image.load("2.jpg")
 img_cap3 = pygame.image.load("3.jpg")
@@ -114,7 +116,7 @@ try:
                     if now - cap_last >= cap_cooldown:                    
                         print "load img %s.." % temp_img_name
                         capture_src = pygame.image.load(temp_img_name)
-                        dest_name = "originals/cap_%s_%s" % (cap_guid, game_count_captures)
+                        dest_name = "originals/cap_%s_%s.jpg" % (cap_guid, game_count_captures)
                         print "copy from SRC %s to DEST %s" % (temp_img_name, dest_name)
                         shutil.copyfile(temp_img_name, dest_name)
 
@@ -158,7 +160,7 @@ try:
 
             #Assemble 4 pictures into 1 using a template
             print "open images..."
-            template = Image.open("template2.jpg")
+            template = Image.open(theme + "template2.jpg")
             thumb1 = Image.open("cap_1.jpg")
             thumb2 = Image.open("cap_2.jpg")
             thumb3 = Image.open("cap_3.jpg")
