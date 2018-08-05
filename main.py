@@ -26,8 +26,8 @@ print "Starting amazing photobooth app..."
 pygame.init()
 pygame.display.set_caption("Photobooth")
 
-screen = pygame.display.set_mode((width,height))#NOT FULLSCREEN
-#screen = pygame.display.set_mode((width,height),pygame.FULLSCREEN)#FULLSCREEN
+#screen = pygame.display.set_mode((width,height))#NOT FULLSCREEN
+screen = pygame.display.set_mode((width,height),pygame.FULLSCREEN)#FULLSCREEN
 clock = pygame.time.Clock()
 game_isrunning = True
 img_ready = pygame.image.load(theme + "ready.jpg")
@@ -145,7 +145,7 @@ try:
                     game_count_captures = game_count_captures + 1
                     cap_last = pygame.time.get_ticks()
                     cap_cooldown = 6700
-                    temp_cmd = "raspistill -p 494,282,706,521 -o cap_%s.jpg" % game_count_captures
+                    temp_cmd = "raspistill -vf -hf -p 494,282,706,521 -o cap_%s.jpg" % game_count_captures
                     cap_guid = GetDateTimeString()
                     print "cap_guid:%s" % cap_guid
                     p1 = sub.Popen(temp_cmd, stdout=sub.PIPE, stderr=sub.PIPE, shell=True)
