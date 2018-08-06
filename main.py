@@ -12,6 +12,8 @@ import sys
 import math
 import shutil
 from PIL import Image
+import RPi.GPIO as GPIO
+import time
 
 width = 1280
 height = 1024
@@ -20,7 +22,7 @@ color_black = pygame.Color(0,0,0)
 color_pink = pygame.Color(175,50,55)
 color_mint = pygame.Color(12,145,44)
 
-theme = "themes/original/"
+theme = "themes/havard/"
 print "Starting amazing photobooth app..."
 
 pygame.init()
@@ -79,6 +81,28 @@ def GetDateTimeString():
     clean = dt.replace(" ","_").replace(":","_")
     return clean
 
+def cb(channel):
+    global game_state
+    global game_count_captures
+    global game_count_captures_ok
+    global game_wait_for_capture
+    global game_wait_ms
+    
+    print("pressed GREEN BUTT")
+    if game_state == "ready":
+        print "SET state to capture..!"
+        game_state = "capture"
+        game_count_captures = 0
+        game_count_captures_ok = 0
+        game_wait_for_capture = False
+        game_wait_ms = 0
+
+ch = 5 # input button IN === channel 5!
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(ch, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.add_event_detect(ch,GPIO.RISING,callback=cb)
+        
 try:
     while game_isrunning:
         spent_ms = clock.tick(50)
@@ -240,6 +264,7 @@ except Exception, e:
     
 finally:
     print "pygame quit.."
+    GPIO.cleanup()
     #This line makes debugging much easier
     pygame.quit()
 
