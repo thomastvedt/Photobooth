@@ -19,6 +19,10 @@ Based on this project: https://github.com/contractorwolf/RaspberryPiPhotobooth
 - sudo pip install Pillow
 - setup ssh and git
 - git clone git@github.com:thomastvedt/Photobooth.git
+- disable desktop
+- start script on boot
+- disable screensaver
+- enable raspberry camera
 
 
 ## Dev setup on windows 10:
@@ -32,4 +36,4 @@ Based on this project: https://github.com/contractorwolf/RaspberryPiPhotobooth
 - xcode-select --install
 - install Homebrew
 - brew install python@2
-- 
+- ++
