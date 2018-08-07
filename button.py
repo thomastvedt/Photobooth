@@ -16,21 +16,13 @@ GPIO.setwarnings(False)
 
 # LED test__
 print "LED"
-ledch = 16 # 10 15 16
-GPIO.setmode(GPIO.BCM)
+ledch = 7 # 10 15 16
+GPIO.setmode(GPIO.BOARD)
 GPIO.setup(ledch, GPIO.OUT)
-print "ON"
+print "ON %s" % ledch
 GPIO.output(ledch,GPIO.HIGH)
-time.sleep(3)
+time.sleep(1)
 print "OFF"
 GPIO.output(ledch,GPIO.LOW)
-
-
-
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(ch, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-
-GPIO.add_event_detect(ch,GPIO.RISING,callback=cb)
-message = input("Pres Enter to stop")
-
+time.sleep(1)
 GPIO.cleanup()

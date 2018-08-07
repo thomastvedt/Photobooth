@@ -81,6 +81,11 @@ def GetDateTimeString():
     clean = dt.replace(" ","_").replace(":","_")
     return clean
 
+ch = 5 # input button IN === channel 5!
+# ledch = 4 # LED channel === 4
+
+
+ 
 def cb(channel):
     global game_state
     global game_count_captures
@@ -96,13 +101,19 @@ def cb(channel):
         game_count_captures_ok = 0
         game_wait_for_capture = False
         game_wait_ms = 0
+        GPIO.output(7,GPIO.LOW) # Turn off LED
 
-ch = 5 # input button IN === channel 5!
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
+
+# ch 5 BOARD == button
+# ch 4 BCM == led. BOARD == 7
+
+
 GPIO.setup(ch, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.add_event_detect(ch,GPIO.RISING,callback=cb)
-        
+GPIO.setup(7, GPIO.OUT)
+  
 try:
     while game_isrunning:
         spent_ms = clock.tick(50)
@@ -124,6 +135,7 @@ try:
                         game_count_captures_ok = 0
                         game_wait_for_capture = False
                         game_wait_ms = 0
+                        GPIO.output(7,GPIO.LOW) # Turn off LED
             elif event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
                 print pos
@@ -230,6 +242,7 @@ try:
             now = pygame.time.get_ticks()
             if now - preview_last >= preview_timer: 
                 print "preview finished..."
+                GPIO.output(7,GPIO.HIGH) # Turn on LED
                 game_state = "ready"
             else:
                 print "showing preview.."
