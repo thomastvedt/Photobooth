@@ -20,7 +20,7 @@ color_black = pygame.Color(0,0,0)
 color_pink = pygame.Color(175,50,55)
 color_mint = pygame.Color(12,145,44)
 
-theme = "themes/original/"
+theme = "themes/solveig30/"
 print "Starting amazing photobooth app..."
 
 pygame.init()
