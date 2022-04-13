@@ -1,6 +1,9 @@
 # Photobooth
 A simple raspberry pi python photobooth made for my wedding.
 
+![image](https://user-images.githubusercontent.com/4746639/163271676-f02a4284-bd4e-4adb-b868-98a8eacb32f1.png)
+
+
 Based on this project: https://github.com/contractorwolf/RaspberryPiPhotobooth 
 - uses RaspberryPi camera, raspistill command
 - hard coded resolution on the screen I used: 1280x1024
